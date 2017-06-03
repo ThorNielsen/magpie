@@ -39,7 +39,13 @@ int main(int argc, char** argv)
         return 0;
     }
     Window wnd;
-    //wnd.open("Bob", 640, 480);
+    wnd.open("Bob", 640, 480);
+    wnd.update();
+    while (wnd.good())
+    {
+        wnd.update();
+    }
+    wnd.close();/*
     InteractiveSoundStream ss;
 
     ss.addCoefficients(1., 1.);
@@ -76,5 +82,5 @@ int main(int argc, char** argv)
         ss.setFrequency(freq, ss.getCurrentSample() + ss.getLag());
     }
     ss.stop();
-    return 0;
+    return 0;*/
 }

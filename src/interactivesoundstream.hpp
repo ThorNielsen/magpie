@@ -37,7 +37,7 @@ public:
         return m_coeff.size() - 1;
     }
 
-    void removeCoefficients(size_t idx, U64 endSample)
+    void removeCoefficients(size_t idx, U64 endSample = 0)
     {
         m_coeff[idx].endSample = endSample;
     }
@@ -51,7 +51,7 @@ public:
     U64 getLag() const
     {
         // 1764 * 25 = 44100
-        return 1764;
+        return 44100/30;
     }
 
     U64 getCurrentSample() const

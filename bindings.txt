@@ -1,0 +1,16 @@
+# Keyboard bindings (for use in interactive mode) can be defined in this
+# document. Bindings can be specified as either reference frequency + tone or
+# as raw frequencies.
+
+# Set reference frequency to 440Hz.
+frequency 440
+
+# Set keyboard button 'Q' to zeroth tone after 440Hz.
+tone Q 0
+
+# More definitions
+tone W 1
+tone E 2
+tone R 3
+tone T 4
+tone Y 5
