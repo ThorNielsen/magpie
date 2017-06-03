@@ -1,0 +1,11 @@
+# Set reference frequency (frequency of one sine wave).
+f 440
+
+# Set constants giving the function:
+# sin(x) + 9 * sin(2x) + 3.75 * sin(3x) + 1.8 * sin(4x)
+# In general, to add A*sin(B*x) to the function, just write "c A B" (with A and
+# B replaced with appropriate constants).
+c 1 1
+c 9 2
+c 3.75 3
+c 1.8 4

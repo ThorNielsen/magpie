@@ -53,9 +53,6 @@
 			<Add option="-Wall" />
 			<Add option="-ansi" />
 			<Add option="-Wcast-qual -Wchar-subscripts -Wcomment -Wconversion -Wdisabled-optimization -Wformat -Wformat=2 -Wformat-nonliteral -Wformat-security -Wformat-y2k -Wimport -Wmissing-field-initializers -Wmissing-format-attribute -Wmissing-noreturn -Wpacked -Wparentheses -Wpointer-arith -Wreturn-type -Wsequence-point -Wsign-compare -Wstack-protector -Wstrict-aliasing -Wstrict-aliasing=2 -Wswitch -Wtrigraphs -Wuninitialized -Wunknown-pragmas -Wunsafe-loop-optimizations -Wunused -Wunused-function -Wunused-label -Wunused-parameter -Wunused-value -Wunused-variable -Wvariadic-macros -Wvolatile-register-var -Wwrite-strings" />
-			<Add option="-Wno-error=inline" />
-			<Add option="-Wno-error=missing-declarations" />
-			<Add option="-Wno-error=switch-default" />
 			<Add directory="extern/include" />
 			<Add directory="src/" />
 		</Compiler>
@@ -71,6 +68,7 @@
 			<Add directory="extern/lib/SFML" />
 			<Add directory="extern/lib/GLFW" />
 		</Linker>
+		<Unit filename="src/interactivesoundstream.hpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/soundstream.hpp" />
 		<Unit filename="src/window.cpp" />

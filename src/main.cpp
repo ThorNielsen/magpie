@@ -13,18 +13,11 @@
 #include <cstdlib>
 #include <map>
 
-#include <SFML/Audio.hpp>
-
 #include <GLFW/glfw3.h>
 
 //#define RUNTIME_CHECKS
-#include "soundstream.hpp"
+#include "interactivesoundstream.hpp"
 #include "window.hpp"
-
-double getCoefficient(double frequency)
-{
-    return 6.2831853071795864769252867665590058 * frequency;
-}
 
 int main(int argc, char** argv)
 {
@@ -47,32 +40,12 @@ int main(int argc, char** argv)
     }
     Window wnd;
     //wnd.open("Bob", 640, 480);
-    SoundStream ss;
+    InteractiveSoundStream ss;
 
-    /*
-    ss.appendCoefficients(1., getCoefficient(440.));
-    ss.appendCoefficients(9., getCoefficient(440. * 2.));
-    ss.appendCoefficients(15./4., getCoefficient(440. * 3.));
-    ss.appendCoefficients(9./5., getCoefficient(440. * 4.));//*/
-    ss.appendCoefficients(1., 1.);
-    ss.appendCoefficients(9., 2.);
-    ss.appendCoefficients(15./4., 3.);
-    ss.appendCoefficients(9./5., 4.);
-    //ss.setFrequency(440.);
-    //ss.appendCoefficients(1.0, )
-    /*for (double d = 1.; d < 100.; d += 1.)
-    {
-        ss.appendCoefficients(5./d, d*100.);
-    }*//*
-    Coefficients cf =
-        {{1., 1.}};//, {0.1, 2.}, {0.33, 3.}, {0.06, 4.}, {0.05, 5.}};
-
-    for (size_t i = 0; i < cf.size(); ++i)
-    {
-        //cf[i].second *= getCoefficient(440.);
-    }
-
-    ss.setCoefficients(cf);//*/
+    ss.addCoefficients(1., 1.);
+    ss.addCoefficients(9., 2.);
+    ss.addCoefficients(15./4., 3.);
+    ss.addCoefficients(9./5., 4.);
 
     std::map<char, double> notes
     {
@@ -100,7 +73,7 @@ int main(int argc, char** argv)
         {
             freq = 0.;
         }
-        ss.setFrequency(freq);
+        ss.setFrequency(freq, ss.getCurrentSample() + ss.getLag());
     }
     ss.stop();
     return 0;

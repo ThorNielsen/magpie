@@ -1,7 +1,10 @@
 #ifndef SOUNDSTREAM_HPP_INCLUDED
 #define SOUNDSTREAM_HPP_INCLUDED
 
-#include <cstdint>
+#include <cmath>
+#include <vector>
+#include <SFML/Audio.hpp>
+
 using S16 = int16_t;
 using U64 = uint64_t;
 
@@ -15,15 +18,15 @@ public:
         initialize(1, 44100);
     }
 
-    void appendCoefficients(double a, double b)
-    {
-        m_coeff.push_back({a, b});
-        updateMaxval();
-    }
-
     void setCoefficients(Coefficients c)
     {
         m_coeff = c;
+        updateMaxval();
+    }
+
+    void setCoefficients(Coefficients&& c)
+    {
+        m_coeff = std::move(c);
         updateMaxval();
     }
     void setFrequency(double frequency)
@@ -88,4 +91,3 @@ private:
 };
 
 #endif // _SOUNDSTREAM_HPP_INCLUDED
-
