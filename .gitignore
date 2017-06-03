@@ -1,0 +1,18 @@
+# No builds and objects
+/bin
+/obj
+*.[oa]
+
+# Ignore external libraries
+/extern
+
+# No backup files created by some editors
+*~
+
+# No extra Code::Blocks project files
+*.depend
+*.layout
+
+# No test resources (may be protected by copyright).
+*.flac
+*.png
