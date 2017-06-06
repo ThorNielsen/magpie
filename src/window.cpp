@@ -6,6 +6,8 @@
 #include <sstream>
 #include <string>
 #include <iostream>
+#include "algorithm.hpp"
+
 #define UNUSED(x) ((void)x)
 
 // Screw good practice and make lots of stuff global to avoid having to code a
@@ -28,13 +30,24 @@ std::map<std::string, int> g_keynames =
     {",", GLFW_KEY_COMMA}, {".", GLFW_KEY_PERIOD},
 };
 
+struct Tone
+{
+    size_t a, b, c, d;
+};
+
 InteractiveSoundStream* g_stream = nullptr;
 std::map<int, double> g_frequency;
+std::map<int, Tone> g_tones;
 
-int g_pressCount;
+double g_maxAmplitude;
 
 void keycb(GLFWwindow* wnd, int key, int scancode, int action, int mods)
 {
+    if (key == GLFW_KEY_ESCAPE)
+    {
+        glfwSetWindowShouldClose(wnd, true);
+        return;
+    }
     UNUSED(wnd);
     UNUSED(scancode);
     UNUSED(mods);
@@ -42,20 +55,27 @@ void keycb(GLFWwindow* wnd, int key, int scancode, int action, int mods)
     auto binding = g_frequency.find(key);
     if (binding != g_frequency.end())
     {
-        if (action == GLFW_PRESS) ++g_pressCount;
-        if (action == GLFW_RELEASE) --g_pressCount;
-        double freq = binding->second;
-        if (!g_pressCount)
+        U64 pos = g_stream->getCurrentSample() + g_stream->getLag();
+        auto tone = g_tones.find(key);
+        if (action == GLFW_PRESS && tone == g_tones.end())
         {
-            g_stream->setFrequency(0.,
-                                   g_stream->getCurrentSample()
-                                   + g_stream->getLag());
+            double freq = binding->second;
+            Tone t;
+            t.a = g_stream->addCoefficients(1., freq * 1., pos);
+            t.b = g_stream->addCoefficients(9., freq * 2., pos);
+            t.c = g_stream->addCoefficients(15./4., freq * 3., pos);
+            t.d = g_stream->addCoefficients(9./5., freq * 4., pos);
+            g_stream->setMaxAmplitude(g_maxAmplitude);
+            g_tones[key] = t;
         }
-        else if (action == GLFW_PRESS)
+        else if (action == GLFW_RELEASE && tone != g_tones.end())
         {
-            g_stream->setFrequency(freq,
-                                   g_stream->getCurrentSample()
-                                   + g_stream->getLag());
+            Tone t = tone->second;
+            g_stream->removeCoefficients(t.a);
+            g_stream->removeCoefficients(t.b);
+            g_stream->removeCoefficients(t.c);
+            g_stream->removeCoefficients(t.d);
+            g_tones.erase(tone);
         }
     }
 }
@@ -113,11 +133,12 @@ void Window::readConfig()
 {
     std::ifstream bindings("bindings.txt");
     std::string linereader;
+    double maxNotes = 1.;
     double refFreq = 440.;
     while (std::getline(bindings, linereader))
     {
         if (linereader[0] == '#' || !linereader.size()) continue;
-        std::stringstream line(linereader);
+        std::stringstream line(trimBeginEndSpace(linereader));
         std::string inputType;
         line >> inputType;
 
@@ -126,6 +147,11 @@ void Window::readConfig()
         if (inputType == "frequency" || inputType == "freq" || inputType == "f")
         {
             line >> refFreq;
+            continue;
+        }
+        else if (inputType == "maxnotes" || inputType == "m")
+        {
+            line >> maxNotes;
             continue;
         }
         else if (inputType == "tone" || inputType == "t")
@@ -139,4 +165,6 @@ void Window::readConfig()
         }
         g_frequency[g_keynames[keyname]] = freq;
     }
+    m_stream.setFrequency(1., 0);
+    g_maxAmplitude = maxNotes * 15.55;
 }

@@ -15,7 +15,6 @@
 
 #include <GLFW/glfw3.h>
 
-//#define RUNTIME_CHECKS
 #include "interactivesoundstream.hpp"
 #include "window.hpp"
 
@@ -45,7 +44,8 @@ int main(int argc, char** argv)
     {
         wnd.update();
     }
-    wnd.close();/*
+    wnd.close();
+    return 0;
     InteractiveSoundStream ss;
 
     ss.addCoefficients(1., 1.);
@@ -74,6 +74,7 @@ int main(int argc, char** argv)
         if (it != notes.end())
         {
             freq = 440. * std::pow(2., it->second/12.);
+            std::cout << "Setting frequency " << freq << std::endl;
         }
         else
         {
@@ -82,5 +83,5 @@ int main(int argc, char** argv)
         ss.setFrequency(freq, ss.getCurrentSample() + ss.getLag());
     }
     ss.stop();
-    return 0;*/
+    return 0;
 }

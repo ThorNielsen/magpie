@@ -1,5 +1,5 @@
-#ifndef _INTERACTIVESOUNDSTREAM_HPP_INCLUDED
-#define _INTERACTIVESOUNDSTREAM_HPP_INCLUDED
+#ifndef INTERACTIVESOUNDSTREAM_HPP_INCLUDED
+#define INTERACTIVESOUNDSTREAM_HPP_INCLUDED
 
 #include <cmath>
 #include <limits>
@@ -48,10 +48,17 @@ public:
         m_freqchangepos = sample;
     }
 
+    void setMaxAmplitude(double ma)
+    {
+        if (m_invmaxval > 1. / ma)
+        {
+            m_invmaxval = 1. / ma;
+        }
+    }
+
     U64 getLag() const
     {
-        // 1764 * 25 = 44100
-        return 44100/30;
+        return 44100/35;
     }
 
     U64 getCurrentSample() const
@@ -98,14 +105,14 @@ private:
         }
         intensity *= m_invmaxval;
 
-#ifdef RUNTIME_CHECKS
+        /*
         if (std::abs(intensity) > 1.)
         {
             throw std::logic_error("Too high intensity (|"
                                     + std::to_string(intensity)
                                     + "| > 1).");
         }
-#endif // RUNTIME_CHECKS
+        */
 
         return static_cast<S16>(intensity * 32767.);
     }
@@ -138,5 +145,5 @@ private:
     double m_invmaxval = 0.;
 };
 
-#endif // _INTERACTIVESOUNDSTREAM_HPP_INCLUDED
+#endif // INTERACTIVESOUNDSTREAM_HPP_INCLUDED
 

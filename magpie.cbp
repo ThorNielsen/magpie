@@ -68,6 +68,10 @@
 			<Add directory="extern/lib/SFML" />
 			<Add directory="extern/lib/GLFW" />
 		</Linker>
+		<Unit filename="src/algorithm.cpp" />
+		<Unit filename="src/algorithm.hpp" />
+		<Unit filename="src/function.cpp" />
+		<Unit filename="src/function.hpp" />
 		<Unit filename="src/interactivesoundstream.hpp" />
 		<Unit filename="src/main.cpp" />
 		<Unit filename="src/soundstream.hpp" />

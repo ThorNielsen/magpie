@@ -53,14 +53,14 @@ private:
             intensity += m_coeff[i].first * std::sin(t * m_coeff[i].second * m_freq);
         }
         intensity *= m_invmaxval;
-#ifdef RUNTIME_CHECKS
+        /*
         if (std::abs(intensity) > 1.)
         {
             throw std::logic_error("Too high intensity (|"
                                     + std::to_string(intensity)
                                     + "| > 1).");
         }
-#endif // RUNTIME_CHECKS
+        */
         return static_cast<S16>(intensity * 32767.);
     }
 

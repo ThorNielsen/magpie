@@ -5,12 +5,39 @@
 # Set reference frequency to 440Hz.
 frequency 440
 
+# Hint that the maximum number of concurrent notes being played will be at most
+# 5 - this is to avoid amplitude scaling.
+maxnotes 5
+
 # Set keyboard button 'Q' to zeroth tone after 440Hz.
 tone Q 0
 
 # More definitions
+tone Q 0
 tone W 1
 tone E 2
 tone R 3
 tone T 4
 tone Y 5
+tone U 6
+tone I 7
+tone O 8
+tone P 9
+tone A 10
+tone S 11
+tone D 12
+tone F 13
+tone G 14
+tone H 15
+tone J 16
+tone K 17
+tone L 18
+tone Z 19
+tone X 20
+tone C 21
+tone V 22
+tone B 23
+tone N 24
+tone M 25
+tone , 26
+tone . 27
