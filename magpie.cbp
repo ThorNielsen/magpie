@@ -25,6 +25,7 @@
 					<Add option="-O3" />
 					<Add option="-Wno-error=unsafe-loop-optimizations" />
 					<Add option="-Werror" />
+					<Add option="-Wno-error=inline" />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />

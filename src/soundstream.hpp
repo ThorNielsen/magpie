@@ -18,6 +18,12 @@ public:
         initialize(1, 44100);
     }
 
+    void addCoefficients(double a, double b)
+    {
+        m_coeff.push_back({a, b});
+        updateMaxval();
+    }
+
     void setCoefficients(Coefficients c)
     {
         m_coeff = c;

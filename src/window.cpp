@@ -137,8 +137,9 @@ void Window::readConfig()
     double refFreq = 440.;
     while (std::getline(bindings, linereader))
     {
+        linereader = trimBeginEndSpace(linereader);
         if (linereader[0] == '#' || !linereader.size()) continue;
-        std::stringstream line(trimBeginEndSpace(linereader));
+        std::stringstream line(linereader);
         std::string inputType;
         line >> inputType;
 
