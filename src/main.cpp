@@ -97,8 +97,8 @@ void menu()
             if (!playFunctionFromFile(filename))
             {
                 if (filename.size()) std::cout << "File not found.\n";
-                std::cout << "Enter function definition (end with CTRL+Z (Linux"
-                             ") or CTRL+D (Windows)):\n";
+                std::cout << "Enter function definition (end with CTRL+D (Linux"
+                             ") or CTRL+Z (Windows)):\n";
                 playFunction(std::cin);
             }
         }
